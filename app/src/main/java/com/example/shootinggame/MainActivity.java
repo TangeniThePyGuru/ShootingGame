@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Point;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -21,8 +22,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // create sound objects
+        SoundPool.Builder soundPoolBuilder = new SoundPool.Builder();
+        SoundPool soundPool = soundPoolBuilder.build();
+        int soundId = soundPool.load(this, R.raw.explosion, 1);
+
         // initialise variables
-        game = new Game();
+        game = new Game(soundPool, soundId);
 
         gameView = new GameView(this, game);
         setContentView(gameView);

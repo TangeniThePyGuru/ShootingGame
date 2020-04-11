@@ -1,5 +1,7 @@
 package com.example.shootinggame;
 
+import android.media.SoundPool;
+
 import java.util.Random;
 
 public class Game
@@ -22,9 +24,16 @@ public class Game
     private boolean fired;
     private boolean hit;
 
-    public Game()
+    private SoundPool soundPool;
+    private int soundId;
+
+    public Game(SoundPool soundPool, int soundId)
     {
         initializeGame();
+
+        // initialize sound objects
+        this.soundPool = soundPool;
+        this.soundId = soundId;
     }
 
     public void update()
@@ -84,6 +93,10 @@ public class Game
         {
             birdX = birdX - birdSpeed;
             hit = decideHit();
+
+            // play sound effect when bird gets hit
+            if (hit)
+                soundPool.play(soundId, 1, 1, 1, 0, 1);
         }
         else
             birdY = birdY - birdSpeed;
@@ -108,6 +121,7 @@ public class Game
         return (birdX < 0 || birdY < 0) && bulletY > 1000;
     }
 
+    // random number generator with lower and upper bound
     private int random_number(int lowerBound, int upperBound){
         Random rand = new Random();
         return rand.nextInt(upperBound) + lowerBound;
