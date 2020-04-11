@@ -24,22 +24,7 @@ public class MainActivity extends AppCompatActivity {
         // initialise variables
         game = new Game();
 
-        // get status bar height
-        Resources res = getResources();
-
-        int statusBarHeight = 0;
-        int statusBarId = res.getIdentifier("status_bar_height", "dimen", "android");
-
-        if (statusBarId > 0)
-            statusBarHeight = res.getDimensionPixelSize(statusBarId);
-
-        Point size = new Point();
-        System.out.println(size.x+ "           " + (size.y - statusBarHeight));
-        System.out.println(size.x+ "           " + (size.y - statusBarHeight));
-        System.out.println(size.x+ "           " + (size.y - statusBarHeight));
-        System.out.println(size.x+ "           " + (size.y - statusBarHeight));
-        System.out.println(size.x+ "           " + (size.y - statusBarHeight));
-        gameView = new GameView(this, game,size.x, size.y - statusBarHeight );
+        gameView = new GameView(this, game);
         setContentView(gameView);
 
 
@@ -64,34 +49,14 @@ public class MainActivity extends AppCompatActivity {
     // gesture listener
     private class TouchHandler extends GestureDetector.SimpleOnGestureListener{
 
-        // when an a single tap gesture is triggered, fire the gun
-        public boolean onSingleTapConfirmed(MotionEvent event){
+        // when an a double tap gesture is triggered, fire the gun
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
 
             // fire gun
             game.fire();
 
-            return true;
+            return super.onDoubleTap(e);
         }
-
-    }
-
-    private int screenHeight()
-    {
-        Point size = new Point();
-        getWindowManager().getDefaultDisplay().getSize(size);
-
-        int DP = (int)(getResources().getDisplayMetrics().density);
-
-        return size.y - 130*DP;
-    }
-
-    private int screenWidth()
-    {
-        Point size = new Point();
-        getWindowManager().getDefaultDisplay().getSize(size);
-
-        int DP = (int)(getResources().getDisplayMetrics().density);
-
-        return size.y - 130*DP;
     }
 }

@@ -12,18 +12,18 @@ public class GameView extends View {
     private double sceneWidth;
     private double sceneHeight;
 
-    public GameView(Context context, Game game, int sceneWidth, int sceneHeight)
+    public GameView(Context context, Game game)
     {
         super(context);
 
-        this.game = new Game();
-        // set the game width and height
-        this.sceneWidth = sceneWidth;
-        this.sceneHeight = sceneHeight;
+        this.game = game;
     }
 
     public void onDraw(Canvas canvas)
     {
+        this.sceneWidth = getWidth();
+        this.sceneHeight = getHeight();
+
         double birdX = game.getBirdX();
         double birdY = game.getBirdY();
         double bulletX = game.getBulletX();
@@ -51,5 +51,4 @@ public class GameView extends View {
         paint.setStrokeWidth(30);
         canvas.drawLine(0, (float)sceneHeight, (float)gunX, (float)(sceneHeight - gunY), paint);
     }
-
 }

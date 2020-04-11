@@ -1,7 +1,9 @@
 package com.example.shootinggame;
 
-public class Game {
+import java.util.Random;
 
+public class Game
+{
     private double birdX;
     private double birdY;
     private double birdSpeed;
@@ -106,16 +108,21 @@ public class Game {
         return (birdX < 0 || birdY < 0) && bulletY > 1000;
     }
 
+    private int random_number(int lowerBound, int upperBound){
+        Random rand = new Random();
+        return rand.nextInt(upperBound) + lowerBound;
+    }
+
     private void initializeGame()
     {
-        double sceneWidth = 1800;
-        double sceneHeight = 1000;
-        double gunLength = 200;
+//        double sceneWidth = 480;
+        double sceneHeight = 680;
+        double gunLength = 100;
         double gunAngle = 45 + 30 * Math.random();
 
-        this.birdX = sceneWidth - 50;
-        this.birdY = sceneHeight - 50 - 400 * Math.random();
-        this.birdSpeed = 10 + 10 * Math.random();
+        this.birdX = sceneHeight - 50;
+        this.birdY = (double) random_number(150, 250);
+        this.birdSpeed = 10;
 
         this.gunX = gunLength*Math.cos(gunAngle*Math.PI/180);
         this.gunY = gunLength*Math.sin(gunAngle*Math.PI/180);
@@ -132,3 +139,4 @@ public class Game {
         this.hit = false;
     }
 }
+
